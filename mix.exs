@@ -32,6 +32,9 @@ defmodule MainProxyDemo.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:makeup_live, github: "axelson/makeup_live_format"},
+      # {:main_proxy, path: "~/dev/forks/main_proxy"},
+      {:main_proxy, "~> 0.2.0"},
       {:phoenix, "~> 1.6.15"},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},

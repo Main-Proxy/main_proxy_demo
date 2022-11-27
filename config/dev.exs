@@ -17,7 +17,22 @@ config :main_proxy_demo, MainProxyDemoWeb.Endpoint,
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
-  ]
+  ],
+  # The Phoenix server runs via main_proxy
+  server: false
+
+config :makeup_live, MakeupLiveWeb.Endpoint,
+  # Binding to loopback ipv4 address prevents access from other machines.
+  # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
+  force_ssl: nil,
+  http: [ip: {127, 0, 0, 1}, port: 4000],
+  url: [host: "makeup.localhost"],
+  check_origin: false,
+  code_reloader: true,
+  debug_errors: true,
+  secret_key_base: "1eD9Tl4S0QxXOt7ATWVBkRQKacdqpQiqsC2uomJOck4xGbmF73ClOWQFPHslVOVb",
+  # The Phoenix server runs via main_proxy
+  server: false
 
 # ## SSL Support
 #

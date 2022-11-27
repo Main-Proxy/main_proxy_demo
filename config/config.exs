@@ -7,12 +7,22 @@
 # General application configuration
 import Config
 
+config :main_proxy,
+  http: [:inet6, port: 4000]
+
 # Configures the endpoint
 config :main_proxy_demo, MainProxyDemoWeb.Endpoint,
   url: [host: "localhost"],
   render_errors: [view: MainProxyDemoWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: MainProxyDemo.PubSub,
   live_view: [signing_salt: "eSO606KX"]
+
+config :makeup_live, MakeupLiveWeb.Endpoint,
+  root: Path.dirname(__DIR__),
+  render_errors: [view: MakeupLiveWeb.ErrorView, accepts: ~w(html json)],
+  pubsub_server: MakeupLive.PubSub,
+  live_view: [signing_salt: "eSO606KX"],
+  server: false
 
 # Configures the mailer
 #
