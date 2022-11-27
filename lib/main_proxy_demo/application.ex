@@ -13,7 +13,8 @@ defmodule MainProxyDemo.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: MainProxyDemo.PubSub},
       # Start the Endpoint (http/https)
-      MainProxyDemoWeb.Endpoint
+      MainProxyDemoWeb.Endpoint,
+      MainProxyDemoWeb.Proxy
       # Start a worker by calling: MainProxyDemo.Worker.start_link(arg)
       # {MainProxyDemo.Worker, arg}
     ]
