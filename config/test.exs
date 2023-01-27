@@ -4,15 +4,18 @@ import Config
 # you can enable the server option below.
 config :main_proxy_demo, MainProxyDemoWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "8KPlQlmGfZWrxMXsw6p1rfJyf11I6wuxaxNNAuhv8mGVqV/eVRZQIEk8c5Qf5MVx",
+  secret_key_base: "eY74oIODdcQrayZtI7h/61/zW+tMzDBgUF1qWk4nvuGt7UnAiuFX6H/4U2hIBc9x",
   server: false
 
 # In test we don't send emails.
 config :main_proxy_demo, MainProxyDemo.Mailer,
   adapter: Swoosh.Adapters.Test
 
+# Disable swoosh api client as it is only required for production adapters.
+config :swoosh, :api_client, false
+
 # Print only warnings and errors during test
-config :logger, level: :warn
+config :logger, level: :warning
 
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime

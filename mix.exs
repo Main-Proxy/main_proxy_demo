@@ -5,7 +5,7 @@ defmodule MainProxyDemo.MixProject do
     [
       app: :main_proxy_demo,
       version: "0.1.0",
-      elixir: "~> 1.12",
+      elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -32,22 +32,20 @@ defmodule MainProxyDemo.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      # {:makeup_live, github: "axelson/makeup_live_format"},
-      {:hello_phoenix, path: "extra/hello_phoenix"},
-      {:main_proxy, path: "~/dev/forks/main_proxy"},
-      # {:main_proxy, "~> 0.2.0"},
-      {:phoenix, "~> 1.7.0-rc.0", override: true},
-      {:exsync, github: "falood/exsync", only: :dev},
+      {:phoenix, "~> 1.7.0-rc.2", override: true},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 0.17.5"},
+      {:phoenix_live_view, "~> 0.18.3"},
+      {:heroicons, "~> 0.5"},
       {:floki, ">= 0.30.0", only: :test},
-      {:phoenix_live_dashboard, "~> 0.6"},
-      {:esbuild, "~> 0.4", runtime: Mix.env() == :dev},
+      {:phoenix_live_dashboard, "~> 0.7.2"},
+      {:esbuild, "~> 0.5", runtime: Mix.env() == :dev},
+      {:tailwind, "~> 0.1.8", runtime: Mix.env() == :dev},
       {:swoosh, "~> 1.3"},
+      {:finch, "~> 0.13"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
-      {:gettext, "~> 0.18"},
+      {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"}
     ]
@@ -61,8 +59,9 @@ defmodule MainProxyDemo.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get"],
-      "assets.deploy": ["esbuild default --minify", "phx.digest"]
+      setup: ["deps.get", "assets.setup"],
+      "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
+      "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"]
     ]
   end
 end

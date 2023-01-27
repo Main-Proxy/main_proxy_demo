@@ -12,9 +12,10 @@ defmodule MainProxyDemo.Application do
       MainProxyDemoWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: MainProxyDemo.PubSub},
+      # Start Finch
+      {Finch, name: MainProxyDemo.Finch},
       # Start the Endpoint (http/https)
-      MainProxyDemoWeb.Endpoint,
-      MainProxyDemoWeb.Proxy
+      MainProxyDemoWeb.Endpoint
       # Start a worker by calling: MainProxyDemo.Worker.start_link(arg)
       # {MainProxyDemo.Worker, arg}
     ]

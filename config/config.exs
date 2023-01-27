@@ -7,22 +7,15 @@
 # General application configuration
 import Config
 
-config :main_proxy,
-  http: [:inet6, port: 4000]
-
 # Configures the endpoint
 config :main_proxy_demo, MainProxyDemoWeb.Endpoint,
   url: [host: "localhost"],
-  render_errors: [view: MainProxyDemoWeb.ErrorView, accepts: ~w(html json), layout: false],
+  render_errors: [
+    formats: [html: MainProxyDemoWeb.ErrorHTML, json: MainProxyDemoWeb.ErrorJSON],
+    layout: false
+  ],
   pubsub_server: MainProxyDemo.PubSub,
-  live_view: [signing_salt: "eSO606KX"]
-
-config :makeup_live, MakeupLiveWeb.Endpoint,
-  root: Path.dirname(__DIR__),
-  render_errors: [view: MakeupLiveWeb.ErrorView, accepts: ~w(html json)],
-  pubsub_server: MakeupLive.PubSub,
-  live_view: [signing_salt: "eSO606KX"],
-  server: false
+  live_view: [signing_salt: "L8hlV69D"]
 
 # Configures the mailer
 #
@@ -33,17 +26,26 @@ config :makeup_live, MakeupLiveWeb.Endpoint,
 # at the `config/runtime.exs`.
 config :main_proxy_demo, MainProxyDemo.Mailer, adapter: Swoosh.Adapters.Local
 
-# Swoosh API client is needed for adapters other than SMTP.
-config :swoosh, :api_client, false
-
 # Configure esbuild (the version is required)
 config :esbuild,
-  version: "0.14.29",
+  version: "0.14.41",
   default: [
     args:
       ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
+  ]
+
+# Configure tailwind (the version is required)
+config :tailwind,
+  version: "3.2.4",
+  default: [
+    args: ~w(
+      --config=tailwind.config.js
+      --input=css/app.css
+      --output=../priv/static/assets/app.css
+    ),
+    cd: Path.expand("../assets", __DIR__)
   ]
 
 # Configures Elixir's Logger

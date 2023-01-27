@@ -19,15 +19,15 @@ defmodule MainProxyDemoWeb.ConnCase do
 
   using do
     quote do
+      # The default endpoint for testing
+      @endpoint MainProxyDemoWeb.Endpoint
+
+      use MainProxyDemoWeb, :verified_routes
+
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
       import MainProxyDemoWeb.ConnCase
-
-      alias MainProxyDemoWeb.Router.Helpers, as: Routes
-
-      # The default endpoint for testing
-      @endpoint MainProxyDemoWeb.Endpoint
     end
   end
 

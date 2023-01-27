@@ -13,26 +13,11 @@ config :main_proxy_demo, MainProxyDemoWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "1eD9Tl4S0QxXOt7ATWVBkRQKacdqpQiqsC2uomJOck4xGbmF73ClOWQFPHslVOVb",
+  secret_key_base: "RdsglEKzAwhFeVJDSm5oUTxVKIFFlc2lSwuoPOJK9BFMAR9hYMLfG71GBmXGIxzg",
   watchers: [
-    # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
-  ],
-  # The Phoenix server runs via main_proxy
-  server: false
-
-config :makeup_live, MakeupLiveWeb.Endpoint,
-  # Binding to loopback ipv4 address prevents access from other machines.
-  # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  force_ssl: nil,
-  http: [ip: {127, 0, 0, 1}, port: 4000],
-  url: [host: "makeup.localhost"],
-  check_origin: false,
-  code_reloader: true,
-  debug_errors: true,
-  secret_key_base: "1eD9Tl4S0QxXOt7ATWVBkRQKacdqpQiqsC2uomJOck4xGbmF73ClOWQFPHslVOVb",
-  # The Phoenix server runs via main_proxy
-  server: false
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
+  ]
 
 # ## SSL Support
 #
@@ -42,7 +27,6 @@ config :makeup_live, MakeupLiveWeb.Endpoint,
 #
 #     mix phx.gen.cert
 #
-# Note that this task requires Erlang/OTP 20 or later.
 # Run `mix help phx.gen.cert` for more information.
 #
 # The `http:` config above can be replaced with:
@@ -64,10 +48,12 @@ config :main_proxy_demo, MainProxyDemoWeb.Endpoint,
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/main_proxy_demo_web/(live|views)/.*(ex)$",
-      ~r"lib/main_proxy_demo_web/templates/.*(eex)$"
+      ~r"lib/main_proxy_demo_web/(controllers|live|components)/.*(ex|heex)$"
     ]
   ]
+
+# Enable dev routes for dashboard and mailbox
+config :main_proxy_demo, dev_routes: true
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
@@ -78,3 +64,6 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+# Disable swoosh api client as it is only required for production adapters.
+config :swoosh, :api_client, false
