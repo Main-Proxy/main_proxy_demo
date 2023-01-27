@@ -7,6 +7,9 @@
 # General application configuration
 import Config
 
+config :main_proxy,
+  http: [:inet6, port: 4000]
+
 # Configures the endpoint
 config :main_proxy_demo, MainProxyDemoWeb.Endpoint,
   url: [host: "localhost"],
@@ -16,6 +19,17 @@ config :main_proxy_demo, MainProxyDemoWeb.Endpoint,
   ],
   pubsub_server: MainProxyDemo.PubSub,
   live_view: [signing_salt: "L8hlV69D"]
+
+config :hello_phoenix, HelloPhoenixWeb.Endpoint,
+  # TODO: Is this needed?
+  # root: Path.dirname(__DIR__),
+  url: [host: "localhost"],
+  render_errors: [
+    formats: [html: HelloPhoenixWeb.ErrorHTML, json: HelloPhoenixWeb.ErrorJSON],
+    layout: false
+  ],
+  pubsub_server: HelloPhoenix.PubSub,
+  live_view: [signing_salt: "tCvlUI2u"]
 
 # Configures the mailer
 #

@@ -18,6 +18,8 @@ defmodule MainProxyDemoWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    live "/demo", DemoLive, :index
   end
 
   # Other scopes may use custom stacks.

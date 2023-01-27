@@ -46,5 +46,10 @@ defmodule MainProxyDemoWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
+
+  # plug MainProxy.NewProxy
+  # plug MainProxy.Router
+  # plug MainProxyDemoWeb.Proxy
+
   plug MainProxyDemoWeb.Router
 end

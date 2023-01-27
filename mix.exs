@@ -32,6 +32,13 @@ defmodule MainProxyDemo.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:main_proxy, path: "~/dev/forks/main_proxy"},
+      # {:main_proxy, "~> 0.2.0"},
+
+      # Example sub-phoenix project
+      {:hello_phoenix, path: "extra/hello_phoenix"},
+
+      # Default phoenix deps
       {:phoenix, "~> 1.7.0-rc.2", override: true},
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
